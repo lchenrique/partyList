@@ -108,7 +108,7 @@ export default function Home() {
 					Lista da Festa do milho
 				</Text>
 				<Flex my="5">
-					<Stack w="100%" direction={["column", "row"]} align='flex-end'>
+					<Stack w="100%" direction={["column", "row"]} align="flex-end">
 						<FormControl id="item">
 							<FormLabel>Nome do item</FormLabel>
 							<Input
@@ -129,10 +129,7 @@ export default function Home() {
 						</FormControl>
 
 						<Box>
-							<Button
-								disabled={todoInput.length < 3}
-								onClick={addTodo}
-							>
+							<Button disabled={todoInput.length < 3} onClick={addTodo}>
 								Add
 							</Button>
 						</Box>
@@ -146,133 +143,142 @@ export default function Home() {
 						</Thead>
 
 						<Tbody>
-							{todos.sort((a, b) => a.name.localeCompare(b.name)).map(
-								(v: { name: string; responsible: string; id: any }) => {
-									return (
-										<Tr>
-											<Td>
-												{" "}
-												{isEdit === v.id ? (
-													<Input
-                          size='sm'
-														value={editInput}
-														name="todos"
-														onChange={(v) =>
-															setEditInput(v.target.value)
-														}
-													/>
-												) : (
-													v.name
-												)}
-											</Td>
-											<Td>
-												{" "}
-												{isEdit === v.id ? (
-													<Input
-                          size='sm'
-														value={editName}
-														name="todos"
-														onChange={(v) =>
-															setEditName(v.target.value)
-														}
-													/>
-												) : (
-													v.responsible
-												)}
-											</Td>
-											<Td isNumeric>
-												<HStack justify="flex-end">
+							{todos
+								.sort((a, b) => a.name.localeCompare(b.name))
+								.map(
+									(v: {
+										name: string;
+										responsible: string;
+										id: any;
+									}) => {
+										return (
+											<Tr key={v.id}>
+												<Td>
+													{" "}
 													{isEdit === v.id ? (
-														<Button
-                            size='sm'
-                            colorScheme='whatsapp'
-															onClick={() => {
-																editItem(v.id);
-																setIsEdit("");
-															}}
-														>
-															Salvar
-														</Button>
+														<Input
+															size="sm"
+															value={editInput}
+															name="todos"
+															onChange={(v) =>
+																setEditInput(v.target.value)
+															}
+														/>
 													) : (
-														<Button
-                            size='sm'
-                            colorScheme='facebook'
-                            variant='outline'
-															onClick={() => {
-																setIsEdit(v.id);
-																setEditInput(v.name);
-																setEditName(v.responsible);
-															}}
-														>
-															Editar
-														</Button>
+														v.name
 													)}
-													<Flex>
-														<Popover
-															closeOnBlur={false}
-															placement="left"
-															initialFocusRef={initRef as any}
-														>
-															{({ isOpen, onClose }) => (
-																<>
-																	<PopoverTrigger>
-																		<Button colorScheme="red"  size='sm'>
-																			<Icon
-																				as={DeleteIcon}
-																			/>
-																		</Button>
-																	</PopoverTrigger>
-																	<Portal>
-																		<PopoverContent w="200">
-																			<PopoverHeader>
-																				Tem certeza?
-																			</PopoverHeader>
-																			<PopoverCloseButton />
-																			<PopoverBody>
-																				<HStack
-																					align="center"
-																					justify="flex-end"
-																				>
-																					<Button
-                                           size='sm'
-																						onClick={
-																							onClose
-																						}
-																						ref={
-																							initRef as any
-																						}
+												</Td>
+												<Td>
+													{" "}
+													{isEdit === v.id ? (
+														<Input
+															size="sm"
+															value={editName}
+															name="todos"
+															onChange={(v) =>
+																setEditName(v.target.value)
+															}
+														/>
+													) : (
+														v.responsible
+													)}
+												</Td>
+												<Td isNumeric>
+													<HStack justify="flex-end">
+														{isEdit === v.id ? (
+															<Button
+																size="sm"
+																colorScheme="whatsapp"
+																onClick={() => {
+																	editItem(v.id);
+																	setIsEdit("");
+																}}
+															>
+																Salvar
+															</Button>
+														) : (
+															<Button
+																size="sm"
+																colorScheme="facebook"
+																variant="outline"
+																onClick={() => {
+																	setIsEdit(v.id);
+																	setEditInput(v.name);
+																	setEditName(v.responsible);
+																}}
+															>
+																Editar
+															</Button>
+														)}
+														<Flex>
+															<Popover
+																closeOnBlur={false}
+																placement="left"
+																initialFocusRef={initRef as any}
+															>
+																{({ isOpen, onClose }) => (
+																	<>
+																		<PopoverTrigger>
+																			<Button
+																				colorScheme="red"
+																				size="sm"
+																			>
+																				<Icon
+																					as={DeleteIcon}
+																				/>
+																			</Button>
+																		</PopoverTrigger>
+																		<Portal>
+																			<PopoverContent w="200">
+																				<PopoverHeader>
+																					Tem certeza?
+																				</PopoverHeader>
+																				<PopoverCloseButton />
+																				<PopoverBody>
+																					<HStack
+																						align="center"
+																						justify="flex-end"
 																					>
-																						Cancelar
-																					</Button>
-																					<Button
-                                           size='sm'
-																						colorScheme="red"
-																						onClick={() => {
-																							removeItem(
-																								v.id
-																							);
-																							onClose();
-																						}}
-																						ref={
-																							initRef as any
-																						}
-																					>
-																						Apagar
-																					</Button>
-																				</HStack>
-																			</PopoverBody>
-																		</PopoverContent>
-																	</Portal>
-																</>
-															)}
-														</Popover>
-													</Flex>
-												</HStack>
-											</Td>
-										</Tr>
-									);
-								}
-							)}
+																						<Button
+																							size="sm"
+																							onClick={
+																								onClose
+																							}
+																							ref={
+																								initRef as any
+																							}
+																						>
+																							Cancelar
+																						</Button>
+																						<Button
+																							size="sm"
+																							colorScheme="red"
+																							onClick={() => {
+																								removeItem(
+																									v.id
+																								);
+																								onClose();
+																							}}
+																							ref={
+																								initRef as any
+																							}
+																						>
+																							Apagar
+																						</Button>
+																					</HStack>
+																				</PopoverBody>
+																			</PopoverContent>
+																		</Portal>
+																	</>
+																)}
+															</Popover>
+														</Flex>
+													</HStack>
+												</Td>
+											</Tr>
+										);
+									}
+								)}
 						</Tbody>
 						<Tfoot>
 							<TheadR />
